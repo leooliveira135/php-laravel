@@ -1,0 +1,1 @@
+Este repositório utiliza como fonte o livro da casa do código PHP e Laravel, que será criado um projeto de controle de estoque.
