@@ -11,13 +11,16 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="produtos">
-                Estoque
-            </a>
+                    <a class="navbar-brand" href="/estoque/public/produtos">
+                        Estoque
+                    </a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="produtos">Listagem</a>
+                        <a href="/estoque/public/produtos">Listagem</a>
+                    </li>
+                    <li>
+                        <a href="/estoque/public/produtos/novo">Novo</a>
                     </li>
                 </ul>
             </div>
