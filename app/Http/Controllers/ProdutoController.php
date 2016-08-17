@@ -10,6 +10,11 @@ class ProdutoController extends Controller{
         return view('produto.listagem')->with('produtos', $produtos);
     }
     
+    public function listaJson(){
+        $produtos = DB::select('select * from produtos');
+        return response()->json($produtos);
+    }
+    
     public function mostra($id){
         $resposta = DB::select('select * from produtos where id = ?', [$id]);
         if(empty($resposta)){
@@ -37,6 +42,6 @@ class ProdutoController extends Controller{
             ]
         );
         
-        return view('produto.adicionado')->with('nome',$nome);
+        return redirect()->route('apelido');
     }
 }

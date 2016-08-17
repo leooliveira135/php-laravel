@@ -17,10 +17,10 @@
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/estoque/public/produtos">Listagem</a>
+                        <a href="{{action('ProdutoController@lista')}}">Listagem</a>
                     </li>
                     <li>
-                        <a href="/estoque/public/produtos/novo">Novo</a>
+                        <a href="{{action('ProdutoController@novo')}}">Novo</a>
                     </li>
                 </ul>
             </div>
