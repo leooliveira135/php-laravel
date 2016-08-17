@@ -24,6 +24,6 @@ class ProdutoTableSeeder extends Seeder{
         
         DB::insert('insert into produtos (nome,quantidade,valor,descricao) values(?,?,?,?)', array('Fogão', 5,950.00,'Painel automático e forno elétrico'));
         
-        DB::insert('insert into produtos (nome,quantidade,valor,descricao) values(?,?,?,?)', array('Geladeira', 1,1520.00,'Manda SMS quando termina de esquentar'));
+        DB::insert('insert into produtos (nome,quantidade,valor,descricao) values(?,?,?,?)', array('Microondas', 1,1520.00,'Manda SMS quando termina de esquentar'));
     }
 }
