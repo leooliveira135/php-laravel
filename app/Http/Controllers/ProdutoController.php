@@ -3,24 +3,25 @@
 use Illuminate\Support\Facades\DB;
 use estoque\Produto;
 use Request;
+use Illuminate\Support\Facades\Input;
 
 class ProdutoController extends Controller{
     public function lista(){
-        $produtos = DB::select('select * from produtos');
+        $produtos = Produto::all();
         return view('produto.listagem')->with('produtos', $produtos);
     }
     
     public function listaJson(){
-        $produtos = DB::select('select * from produtos');
+        $produtos = Produto::all();
         return response()->json($produtos);
     }
     
     public function mostra($id){
-        $resposta = DB::select('select * from produtos where id = ?', [$id]);
-        if(empty($resposta)){
+        $produto = Produto::find($id);
+        if(empty($produto)){
             return "Este produto não existe";
         }
-        return view('produto.detalhes')->with('p',$resposta[0]);
+        return view('produto.detalhes')->with('p',$produto);
     }
     
     public function novo(){
@@ -28,20 +29,27 @@ class ProdutoController extends Controller{
     }
     
     public function adiciona(){
-        $nome = Request::input('nome');
-        $descricao = Request::input('descricao');
-        $valor = Request::input('valor');
-        $quantidade = Request::input('quantidade');
+        Produto::create(Request::all());
         
-        DB::table('produtos')->insert(
-            [
-                'nome' => $nome,
-                'valor' => $valor,
-                'descricao' => $descricao,
-                'quantidade' => $quantidade
-            ]
-        );
+        return redirect()->action('ProdutoController@lista')->withInput(Request::only('nome'));
+    }
+    
+    public function remove($id){
+        $produto = Produto::find($id);
+        $produto->delete();
         
-        return redirect()->route('apelido');
+        return redirect()->action('ProdutoController@lista');
+    }
+    
+    public function altera($id){
+        $produto = Produto::find($id);
+        $produto->nome = Input::get('nome');
+        $produto->valor = Input::get('valor');
+        $produto->descricao = Input::get('descricao');
+        $produto->quantidade = Input::get('quantidade');
+        
+        $produto->save();
+        
+        return view('produto.formulario')->with('p', $produto);
     }
 }
