@@ -42,7 +42,7 @@ class ProdutoController extends Controller{
     }
     
     public function altera($id){
-        $produto = Produto::find($id);
+        $produto = Produto::findWhere($id);
         $produto->nome = Input::get('nome');
         $produto->valor = Input::get('valor');
         $produto->descricao = Input::get('descricao');
