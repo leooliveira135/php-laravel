@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function(){
-    return '<h1>Primeira lógica com Laravel</h1>';
-});
-
 Route::get('/produtos', 
            [
                'as' => 'apelido',
@@ -29,6 +25,27 @@ Route::post('/produtos/adiciona', 'ProdutoController@adiciona');
 
 Route::get('/produtos/json', 'ProdutoController@listaJson');
 
-Route::get('/produtos/remove/{id}', 'ProdutoController@remove');
+Route::get('/produtos/remove/{id}', [
+    'middleware' => 'nosso-middleware',
+    'uses' => 'ProdutoController@remove'
+]);
 
 Route::get('/produtos/altera/{id}', 'ProdutoController@altera');
+
+Route::group(['middleware' => ['web']], function () {
+
+    // Authentication routes...
+    Route::get('auth/login', 'Auth\AuthController@getLogin');
+    Route::post('auth/login', 'Auth\AuthController@postLogin');
+    Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+    // Registration routes...
+    Route::get('auth/register', 'Auth\AuthController@getRegister');
+    Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+});
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
+
+Route::get('/login', 'LoginController@login');
