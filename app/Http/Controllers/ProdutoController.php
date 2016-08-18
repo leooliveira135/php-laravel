@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\DB;
 use estoque\Produto;
 use Request;
 use Illuminate\Support\Facades\Input;
+use estoque\Http\Requests\ProdutosRequest;
 
 class ProdutoController extends Controller{
     public function lista(){
@@ -28,8 +29,8 @@ class ProdutoController extends Controller{
         return view('produto.formulario');
     }
     
-    public function adiciona(){
-        Produto::create(Request::all());
+    public function adiciona(ProdutosRequest $request){
+        Produto::create($request->all());
         
         return redirect()->action('ProdutoController@lista')->withInput(Request::only('nome'));
     }
@@ -43,12 +44,6 @@ class ProdutoController extends Controller{
     
     public function altera($id){
         $produto = Produto::findOrFail($id);
-        $produto->nome = Input::get('nome');
-        $produto->valor = Input::get('valor');
-        $produto->descricao = Input::get('descricao');
-        $produto->quantidade = Input::get('quantidade');
-        
-        $produto->save();
         
         return view('produto.formulario')->with('p', $produto);
     }
