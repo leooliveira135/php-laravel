@@ -23,41 +23,45 @@ Route::get('/produtos/mostra/{id}', 'ProdutoController@mostra')->where('id', '[0
 
 Route::get('/produtos/novo', 'ProdutoController@novo');
 
-Route::post('/produtos/adiciona', [
-    'middleware' => 'nosso-middleware',
-    'uses' => 'ProdutoController@adiciona'
-]);
-
 Route::get('/produtos/json', 'ProdutoController@listaJson');
 
-Route::get('/produtos/remove/{id}', [
-    'middleware' => 'nosso-middleware',
-    'uses' => 'ProdutoController@remove'
-]);
+Route::group(['middleware' => ['web']], function () {
+    // Authentication routes...
+    Route::get('auth/login', 'Auth\AuthController@getLogin');
+    Route::post('auth/login', 'Auth\AuthController@postLogin');
+    Route::get('auth/logout', 'Auth\AuthController@getLogout');
+    // Registration routes...
+    Route::get('auth/register', 'Auth\AuthController@getRegister');
+    Route::post('auth/register', 'Auth\AuthController@postRegister');
+    
+    Route::post('/produtos/adiciona', [
+        'middleware' => 'nosso-middleware',
+        'uses' => 'ProdutoController@adiciona'
+    ]);
+    
+    Route::get('/produtos/remove/{id}', [
+        'middleware' => 'nosso-middleware',
+        'uses' => 'ProdutoController@remove'
+    ]);    
 
-// Authentication routes...
-Route::get('auth/login', 'Auth\AuthController@getLogin');
-Route::post('auth/login', 'Auth\AuthController@postLogin');
-Route::get('auth/logout', 'Auth\AuthController@getLogout');
+    Route::get('/login', [
+        'as' => 'entrar',
+        'middleware' => 'nosso-middleware',
+        'uses' => 'LoginController@login',
+    ]);
 
-// Registration routes...
-Route::get('auth/register', 'Auth\AuthController@getRegister');
-Route::post('auth/register', 'Auth\AuthController@postRegister');
+    Route::get('/logout', [
+        'as' => 'sair',
+        'middleware' => 'nosso-middleware',
+        'uses' => 'LoginController@logout',
+    ]);
+    
+    
+    Route::get('/home', 'HomeController@index');
+    
+    Route::auth();
+});
 
 Route::get('/produtos/{id}/altera', 'ProdutoController@altera');
 
 Route::put('/produtos/atualiza/{id}', 'ProdutoController@atualiza');
-
-Route::get('/home', 'HomeController@index');
-    
-Route::get('/login', [
-    'as' => 'entrar',
-    'middleware' => 'nosso-middleware',
-    'uses' => 'LoginController@login',
-]);
-
-Route::get('/logout', [
-    'as' => 'sair',
-    'middleware' => 'nosso-middleware',
-    'uses' => 'LoginController@logout',
-]);
