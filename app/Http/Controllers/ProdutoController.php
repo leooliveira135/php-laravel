@@ -48,7 +48,7 @@ class ProdutoController extends Controller{
     }
     
     public function altera($id){
-        $produto = Produto::find($id);
+        $produto = Produto::findOrFail($id);
         
         if(is_null($produto)){
             return Redirect::route('produto.adicionado');
@@ -57,10 +57,9 @@ class ProdutoController extends Controller{
         return view('produto.listagem')->with('produtos',$produto);
     }
     
-    public function atualiza($id){
-        $produtoUpdate = Request::all();
-        $produto = Produto::find($id);
-        $produto->update($produtoUpdate);
+    public function atualiza($id, ProdutosRequest $request){
+        $produto = Produto::findOrFail($id);
+        $produto->update($request->all());
         
         return redirect()->action('ProdutoController@lista')->withInput(Request::only('nome'));
     }

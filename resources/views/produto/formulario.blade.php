@@ -1,4 +1,4 @@
-@extends('layout.principal') @section('conteudo')
+    @extends('layout.principal') @section('conteudo')
 
 <h1 class="text-center">Novo produto</h1> @if(count($errors) > 0)
 <div class="alert alert-danger">
