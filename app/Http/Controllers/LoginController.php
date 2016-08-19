@@ -5,7 +5,6 @@ namespace estoque\Http\Controllers;
 use Request;
 use estoque\Http\Controllers\Controller;
 use estoque\Http\Requests;
-
 use Auth;
 
 class LoginController extends Controller {
@@ -17,5 +16,9 @@ class LoginController extends Controller {
         }
         
         return "As credenciais não são válidas";
+    }
+    
+    public function logout(){
+        return Auth::logout();
     }
 }

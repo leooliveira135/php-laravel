@@ -1,12 +1,11 @@
 <?php namespace estoque\Http\Controllers;
-    
-use Illuminate\Support\Facades\DB;
+
 use estoque\Produto;
 use Request;
-use Illuminate\Support\Facades\Input;
 use estoque\Http\Requests\ProdutosRequest;
 
 class ProdutoController extends Controller{
+    
     public function __construct(){
         $this->middleware('auth', [
             'only' => ['adiciona', 'remove']
@@ -49,8 +48,20 @@ class ProdutoController extends Controller{
     }
     
     public function altera($id){
-        $produto = Produto::findOrFail($id);
+        $produto = Produto::find($id);
         
-        return view('produto.formulario')->with('p', $produto);
+        if(is_null($produto)){
+            return Redirect::route('produto.adicionado');
+        }
+        
+        return view('produto.listagem')->with('produtos',$produto);
+    }
+    
+    public function atualiza($id){
+        $produtoUpdate = Request::all();
+        $produto = Produto::find($id);
+        $produto->update($produtoUpdate);
+        
+        return redirect()->action('ProdutoController@lista')->withInput(Request::only('nome'));
     }
 }

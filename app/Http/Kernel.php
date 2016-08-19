@@ -15,10 +15,11 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        'Illuminate\Session\Middleware\StartSession',
-        'Illuminate\View\Middleware\ShareErrorsFromSession',
-        'estoque\Http\Middleware\VerifyCsrfToken',
-        'estoque\Http\Middleware\AutorizacaoMiddleware',
+        \estoque\Http\Middleware\EncryptCookies::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \estoque\Http\Middleware\VerifyCsrfToken::class,
+        \estoque\Http\Middleware\AutorizacaoMiddleware::class,
     ];
 
     /**
@@ -37,6 +38,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             'throttle:60,1',
+            'auth:api',
         ],
     ];
 
@@ -53,9 +55,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \estoque\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'auth' => 'estoque\Http\Middleware\Authenticate',
-        'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-        'guest' => 'estoque\Http\Middleware\RedirectIfAuthenticated',
-        'nosso-middleware' => 'estoque\Http\Middleware\AutorizacaoMiddleware',
+        'nosso-middleware' => \estoque\Http\Middleware\AutorizacaoMiddleware::class,
     ];
 }
