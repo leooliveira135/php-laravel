@@ -43,4 +43,5 @@
     <span class="label label-danger pull-right">
         Um ou menos items no estoque
     </span>
-</h4> @stop
+</h4> 
+@stop

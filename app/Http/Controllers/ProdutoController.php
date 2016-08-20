@@ -7,8 +7,8 @@ use estoque\Http\Requests\ProdutosRequest;
 class ProdutoController extends Controller{
     
     public function __construct(){
-        $this->middleware('auth', [
-            'only' => ['adiciona', 'remove']
+        $this->middleware('nosso-middleware', [
+            'only' => ['adiciona' ,'altera', 'atualiza', 'remove']
         ]);
     }
     

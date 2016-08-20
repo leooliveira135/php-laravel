@@ -11,7 +11,7 @@
 @endif
 
 <form action="adiciona" method="post">
-    <input type="hidden" name="_token" value="{{{ csrf_token() }}}" /> @if(Request::is('*/altera')) {!! Form::model($produto, ['method' => 'PATCH', 'url' => 'produtos/'.$produto->id]) !!} @else {!! Form::open(['url' => 'produtos/adiciona']) !!} @endif
+    <input type="hidden" name="_token" value="{{{ csrf_token() }}}" /> 
     <div class="form-group">
         <label>Nome</label>
         <input class="form-control" name="nome" value="{{ old('nome') }}" />
@@ -33,4 +33,4 @@
     </div>
 </form>
 
-@endsection @stop
+@stop
