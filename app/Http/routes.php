@@ -13,17 +13,22 @@
 
 Route::get('/', 'ProdutoController@lista');
 
-Route::get('/produtos/mostra/{id}', 'ProdutoController@mostra')->where('id', '[0-9]+');
+Route::get('mostra/{id}', 'ProdutoController@mostra')->where('id', '[0-9]+');
 
-Route::get('/produtos/novo', 'ProdutoController@novo');
+Route::get('novo', 'ProdutoController@novo');
 
-Route::get('/produtos/json', 'ProdutoController@listaJson');
+Route::get('json', 'ProdutoController@listaJson');
 
-Route::get('/home', 'HomeController@index');
+Route::get('home', 'HomeController@index');
 
-Route::group(['middleware' => ['nosso-middleware']], function(){ 
-    Route::post('/produtos/adiciona', 'ProdutoController@adiciona');
-    Route::delete('/produtos/remove/{id}', 'ProdutoController@remove')->where('id', '[0-9]+');
-    Route::get('/produtos/{id}/altera', 'ProdutoController@altera');
-    Route::put('/produtos/atualiza/{id}', 'ProdutoController@atualiza')->where('id', '[0-9]+');
-});
+Route::post('adiciona', 'ProdutoController@adiciona');
+
+Route::get('remove/{id}', 'ProdutoController@remove')->where('id', '[0-9]+');
+
+Route::get('{id}/altera', 'ProdutoController@altera')->where('id', '[0-9]+');
+
+Route::get('atualiza/{id}', 'ProdutoController@atualiza')->where('id', '[0-9]+');
+
+Route::resource('produtos', 'ProdutoController');
+
+Route::auth();

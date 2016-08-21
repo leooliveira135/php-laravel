@@ -60,6 +60,7 @@ class ProdutoController extends Controller{
     public function atualiza($id, ProdutosRequest $request){
         $produto = Produto::findOrFail($id);
         $produto->update($request->all());
+        $produto->save();
         
         return redirect()->action('ProdutoController@lista')->withInput(Request::only('nome'));
     }

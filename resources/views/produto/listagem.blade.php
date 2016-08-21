@@ -21,7 +21,7 @@
             {{ $p->quantidade }}
         </td>
         <td>
-            <a href="produtos/mostra/{{$p->id}}">
+            <a href="{{action('ProdutoController@mostra', $p->id)}}">
                 <span class="glyphicon glyphicon-search"></span>
             </a>
         </td>
@@ -43,5 +43,4 @@
     <span class="label label-danger pull-right">
         Um ou menos items no estoque
     </span>
-</h4> 
-@stop
+</h4> @stop
